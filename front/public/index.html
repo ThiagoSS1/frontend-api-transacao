@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./public/css/bootstrap.css">
+    <link rel="stylesheet" href="./public/js/bootstrap.js">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <title>Document</title>
+    <script>
+        function buscarId() {
+            const url = "https://backend-api-transacao.herokuapp.com/users"
+
+            const inputId = document.querySelector("#inputId");
+            if (inputId.value) {
+                axios.get(url + `/${inputId.value}`).then((response) => {
+                    let users = response.data
+
+                    const tableBody = document.querySelector("tbody")
+                    tableBody.innerHTML = ""
+                    const tableRow = document.createElement("tr")
+                    const rowId = document.createElement("th")
+                    rowId.innerHTML = users.id
+                    const rowName = document.createElement("th")
+                    rowName.innerHTML = users.name
+                    const rowAge = document.createElement("th")
+                    rowAge.innerHTML = users.age;
+                    const rowCpf = document.createElement("th")
+                    rowCpf.innerHTML = users.cpf;
+                    const rowEmail = document.createElement("th")
+                    rowEmail.innerHTML = users.email;
+
+                    tableRow.appendChild(rowId)
+                    tableRow.appendChild(rowName)
+                    tableRow.appendChild(rowAge)
+                    tableRow.appendChild(rowCpf)
+                    tableRow.appendChild(rowEmail)
+                    tableBody.appendChild(tableRow)
+                })
+            } else {
+                listarUsuarios()
+            }
+                 
+        }
+    </script>
+
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="input-group mb-3 mt-3">
+                    <input type="text" id="inputId" class="form-control" placeholder="Digite o id">
+                    <button onclick='buscarId()' class="btn btn-outline-secondary" type="button"> Procurar</button>
+                </div>
+            </div>
+        </div>
+
+        <table class="table table-striped mt-5">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Age</th>
+                    <th>CPF</th>
+                    <th>Email</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+    <script type="module" src="./index.js"></script>
+    
+</body>
+
+</html>
